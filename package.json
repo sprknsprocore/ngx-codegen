@@ -18,7 +18,8 @@
     "sync:figma-tokens": "ts-node --transpile-only scripts/sync-figma-tokens.ts",
     "sync:figma-component": "ts-node --transpile-only scripts/sync-figma-component.ts",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "deploy-storybook": "npm run build-storybook && gh-pages -d storybook-static"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -32,6 +33,7 @@
     "@storybook/react": "^8.6.14",
     "@storybook/react-vite": "^8.6.14",
     "@types/node": "^24.10.1",
+    "gh-pages": "^6.3.0",
     "storybook": "^8.6.14",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
