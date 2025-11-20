@@ -1,34 +1,39 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
+    branches: [main]
+  push:
     branches: [main]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Node
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Install PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Install deps
-        run: pnpm install --frozen-lockfile
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build tokens
-        run: pnpm build:tokens
+        run: npm run build:tokens
+
       - name: Lint
-        run: pnpm lint
-      - name: Typecheck
-        run: pnpm typecheck
-      - name: Scan for raw values
-        run: pnpm test:scan
+        run: npm run lint
 
+      - name: Type check
+        run: npm run typecheck
 
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Check token violations
+        run: npm run check:tokens
