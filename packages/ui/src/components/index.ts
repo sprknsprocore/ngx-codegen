@@ -55,6 +55,7 @@ export * from "./Tile";
 export * from "./Title";
 export * from "./Toast";
 export * from "./Toggle";
+export * from "./TokenReference";
 export * from "./Tooltip";
 export * from "./Tree";
 export * from "./navigation";

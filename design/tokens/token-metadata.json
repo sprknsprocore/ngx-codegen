@@ -1,0 +1,274 @@
+{
+  "color": {
+    "_category": "Foreground Colors",
+    "_description": "Text and icon colors for various contexts",
+    "fg.default": {
+      "value": "#0F172A",
+      "description": "Primary text on light backgrounds",
+      "usage": "Main body text, headings, primary content",
+      "class": "text-fg-default"
+    },
+    "fg.secondary": {
+      "value": "#475569",
+      "description": "Secondary/supporting text",
+      "usage": "Subtitles, descriptions, helper text",
+      "class": "text-fg-secondary"
+    },
+    "fg.muted": {
+      "value": "#64748B",
+      "description": "Muted/tertiary text",
+      "usage": "Placeholders, disabled text, timestamps",
+      "class": "text-fg-muted"
+    },
+    "fg.disabled": {
+      "value": "#94A3B8",
+      "description": "Disabled state text",
+      "usage": "Disabled buttons, inactive elements",
+      "class": "text-fg-disabled"
+    },
+    "fg.onbrand": {
+      "value": "#FFFFFF",
+      "description": "Text on brand backgrounds",
+      "usage": "Text on blue/brand-colored buttons or cards",
+      "class": "text-fg-onbrand"
+    },
+    "fg.reversed": {
+      "value": "#FFFFFF",
+      "description": "Text on dark backgrounds",
+      "usage": "Dark mode text, text on dark cards",
+      "class": "text-fg-reversed"
+    },
+    "fg.brand": {
+      "value": "#2563EB",
+      "description": "Brand color text (links, etc)",
+      "usage": "Links, brand elements, interactive text",
+      "class": "text-fg-brand"
+    },
+    "fg.brand-hover": {
+      "value": "#1D4ED8",
+      "description": "Brand text hover state",
+      "usage": "Hover state for links and brand text",
+      "class": "text-fg-brand-hover"
+    },
+    "fg.success": {
+      "value": "#16A34A",
+      "description": "Success state text (green)",
+      "usage": "Success messages, positive indicators",
+      "class": "text-fg-success"
+    },
+    "fg.error": {
+      "value": "#DC2626",
+      "description": "Error state text (red)",
+      "usage": "Error messages, validation errors",
+      "class": "text-fg-error"
+    },
+    "fg.warning": {
+      "value": "#D97706",
+      "description": "Warning state text (orange)",
+      "usage": "Warning messages, alerts",
+      "class": "text-fg-warning"
+    },
+    "_category_bg": "Background Colors",
+    "_description_bg": "Surface and container backgrounds",
+    "bg.canvas": {
+      "value": "#FFFFFF",
+      "description": "Page background (base layer)",
+      "usage": "Main page background, app canvas",
+      "class": "bg-bg-canvas"
+    },
+    "bg.surface": {
+      "value": "#F8FAFC",
+      "description": "Elevated surface (cards, panels)",
+      "usage": "Cards, modals, panels, elevated containers",
+      "class": "bg-bg-surface"
+    },
+    "bg.secondary": {
+      "value": "#F1F5F9",
+      "description": "Secondary surface",
+      "usage": "Subtle backgrounds, hover states",
+      "class": "bg-bg-secondary"
+    },
+    "bg.tertiary": {
+      "value": "#E2E8F0",
+      "description": "Tertiary surface (selected states)",
+      "usage": "Selected items, active states, borders",
+      "class": "bg-bg-tertiary"
+    },
+    "bg.brand": {
+      "value": "#2563EB",
+      "description": "Brand color background",
+      "usage": "Primary buttons, brand elements",
+      "class": "bg-bg-brand"
+    },
+    "bg.brand-hover": {
+      "value": "#1D4ED8",
+      "description": "Brand background hover",
+      "usage": "Hover state for brand buttons/elements",
+      "class": "bg-bg-brand-hover"
+    },
+    "bg.success": {
+      "value": "#F0FDF4",
+      "description": "Success background (light green)",
+      "usage": "Success banners, positive feedback backgrounds",
+      "class": "bg-bg-success"
+    },
+    "bg.error": {
+      "value": "#FEF2F2",
+      "description": "Error background (light red)",
+      "usage": "Error banners, validation error backgrounds",
+      "class": "bg-bg-error"
+    },
+    "bg.warning": {
+      "value": "#FFFBEB",
+      "description": "Warning background (light orange)",
+      "usage": "Warning banners, alert backgrounds",
+      "class": "bg-bg-warning"
+    },
+    "bg.reversed": {
+      "value": "#0F172A",
+      "description": "Dark background",
+      "usage": "Dark mode, dark sections, contrasting areas",
+      "class": "bg-bg-reversed"
+    },
+    "bg.scrim-light": {
+      "value": "rgba(15, 23, 42, 0.25)",
+      "description": "25% opacity overlay",
+      "usage": "Light modal overlays, subtle scrims",
+      "class": "bg-bg-scrim-light"
+    },
+    "bg.scrim-medium": {
+      "value": "rgba(15, 23, 42, 0.50)",
+      "description": "50% opacity overlay",
+      "usage": "Modal overlays, drawer backgrounds",
+      "class": "bg-bg-scrim-medium"
+    },
+    "bg.scrim-dark": {
+      "value": "rgba(15, 23, 42, 0.75)",
+      "description": "75% opacity overlay",
+      "usage": "Strong modal overlays, focus backgrounds",
+      "class": "bg-bg-scrim-dark"
+    },
+    "_category_border": "Border Colors",
+    "_description_border": "Border and divider colors",
+    "border.default": {
+      "value": "#CBD5E1",
+      "description": "Standard borders",
+      "usage": "Input borders, card borders, dividers",
+      "class": "border-border-default"
+    },
+    "border.hover": {
+      "value": "#94A3B8",
+      "description": "Hover state borders",
+      "usage": "Border hover states, interactive elements",
+      "class": "border-border-hover"
+    },
+    "border.focus": {
+      "value": "#2563EB",
+      "description": "Focus state borders (accessibility)",
+      "usage": "Focused inputs, keyboard navigation",
+      "class": "border-border-focus"
+    },
+    "border.error": {
+      "value": "#DC2626",
+      "description": "Error state borders",
+      "usage": "Invalid inputs, error indicators",
+      "class": "border-border-error"
+    },
+    "border.success": {
+      "value": "#16A34A",
+      "description": "Success state borders",
+      "usage": "Valid inputs, success indicators",
+      "class": "border-border-success"
+    },
+    "_category_state": "State Colors",
+    "_description_state": "Semantic state indicators",
+    "state.success": {
+      "value": "#16A34A",
+      "description": "Success states (green)",
+      "usage": "Success badges, positive status",
+      "class": "bg-state-success text-state-success"
+    },
+    "state.warn": {
+      "value": "#D97706",
+      "description": "Warning states (orange)",
+      "usage": "Warning badges, caution status",
+      "class": "bg-state-warn text-state-warn"
+    },
+    "state.danger": {
+      "value": "#DC2626",
+      "description": "Error/danger states (red)",
+      "usage": "Error badges, critical status",
+      "class": "bg-state-danger text-state-danger"
+    },
+    "state.info": {
+      "value": "#2563EB",
+      "description": "Info states (blue)",
+      "usage": "Info badges, informational status",
+      "class": "bg-state-info text-state-info"
+    },
+    "state.selected": {
+      "value": "#EFF6FF",
+      "description": "Selected state background",
+      "usage": "Selected items, active navigation",
+      "class": "bg-state-selected"
+    }
+  },
+  "space": {
+    "_category": "Spacing Scale",
+    "_description": "Consistent spacing for padding, margins, and gaps",
+    "_note": "4px base unit (0.25rem). Use for padding, margin, gap, etc.",
+    "0": { "value": "0px", "description": "No space", "usage": "Remove spacing", "class": "p-0 m-0 gap-0" },
+    "0.5": { "value": "2px", "description": "0.5× spacing (2px)", "usage": "Minimal spacing", "class": "p-0.5 m-0.5 gap-0.5" },
+    "1": { "value": "4px", "description": "1× spacing (4px)", "usage": "Tight spacing", "class": "p-1 m-1 gap-1" },
+    "1.5": { "value": "6px", "description": "1.5× spacing (6px)", "usage": "Between tight and normal", "class": "p-1.5 m-1.5 gap-1.5" },
+    "2": { "value": "8px", "description": "2× spacing (8px)", "usage": "Normal small spacing", "class": "p-2 m-2 gap-2" },
+    "2.5": { "value": "10px", "description": "2.5× spacing (10px)", "usage": "Between small and medium", "class": "p-2.5 m-2.5 gap-2.5" },
+    "3": { "value": "12px", "description": "3× spacing (12px)", "usage": "Medium spacing", "class": "p-3 m-3 gap-3" },
+    "4": { "value": "16px", "description": "4× spacing (16px)", "usage": "Standard spacing", "class": "p-4 m-4 gap-4" },
+    "5": { "value": "20px", "description": "5× spacing (20px)", "usage": "Large spacing", "class": "p-5 m-5 gap-5" },
+    "6": { "value": "24px", "description": "6× spacing (24px)", "usage": "Extra large spacing", "class": "p-6 m-6 gap-6" },
+    "8": { "value": "32px", "description": "8× spacing (32px)", "usage": "Section spacing", "class": "p-8 m-8 gap-8" },
+    "10": { "value": "40px", "description": "10× spacing (40px)", "usage": "Large section spacing", "class": "p-10 m-10 gap-10" },
+    "12": { "value": "48px", "description": "12× spacing (48px)", "usage": "Major section spacing", "class": "p-12 m-12 gap-12" }
+  },
+  "radius": {
+    "_category": "Border Radius",
+    "_description": "Consistent corner rounding",
+    "none": { "value": "0px", "description": "No rounding (sharp corners)", "usage": "Rectangular elements", "class": "rounded-none" },
+    "sm": { "value": "4px", "description": "Small rounding", "usage": "Badges, small buttons", "class": "rounded-sm" },
+    "md": { "value": "8px", "description": "Medium rounding (default)", "usage": "Buttons, inputs, cards", "class": "rounded-md" },
+    "lg": { "value": "12px", "description": "Large rounding", "usage": "Large cards, modals", "class": "rounded-lg" },
+    "xl": { "value": "16px", "description": "Extra large rounding", "usage": "Feature cards, panels", "class": "rounded-xl" },
+    "full": { "value": "9999px", "description": "Fully rounded (circular)", "usage": "Pills, avatars, circular buttons", "class": "rounded-full" }
+  },
+  "shadow": {
+    "_category": "Shadows",
+    "_description": "Elevation and depth",
+    "sm": { "value": "0 1px 2px 0 rgba(0,0,0,0.05)", "description": "Small shadow (subtle)", "usage": "Small cards, hover states", "class": "shadow-sm" },
+    "md": { "value": "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)", "description": "Medium shadow (default)", "usage": "Cards, dropdowns, tooltips", "class": "shadow-md" },
+    "lg": { "value": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)", "description": "Large shadow (elevated)", "usage": "Modals, popover menus, drawers", "class": "shadow-lg" }
+  },
+  "typography": {
+    "_category": "Typography",
+    "_description": "Font sizes, weights, and families",
+    "fontFamily": {
+      "sans": { "value": "Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'", "description": "Sans-serif font stack", "usage": "All UI text", "class": "font-sans" },
+      "mono": { "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, 'Courier New'", "description": "Monospace font stack", "usage": "Code, technical text", "class": "font-mono" }
+    },
+    "size": {
+      "xs": { "value": "0.75rem", "description": "12px - Extra small", "usage": "Captions, labels", "class": "text-xs" },
+      "sm": { "value": "0.875rem", "description": "14px - Small", "usage": "Small body text, secondary info", "class": "text-sm" },
+      "md": { "value": "1rem", "description": "16px - Medium (base)", "usage": "Body text, default size", "class": "text-md" },
+      "lg": { "value": "1.125rem", "description": "18px - Large", "usage": "Large body text, subheadings", "class": "text-lg" },
+      "xl": { "value": "1.25rem", "description": "20px - Extra large", "usage": "Section headings", "class": "text-xl" },
+      "2xl": { "value": "1.5rem", "description": "24px - 2× extra large", "usage": "Page titles, major headings", "class": "text-2xl" }
+    },
+    "weight": {
+      "regular": { "value": "400", "description": "Regular weight", "usage": "Body text, default weight", "class": "font-regular" },
+      "medium": { "value": "500", "description": "Medium weight", "usage": "Emphasized text, UI labels", "class": "font-medium" },
+      "semibold": { "value": "600", "description": "Semibold weight", "usage": "Subheadings, important text", "class": "font-semibold" },
+      "bold": { "value": "700", "description": "Bold weight", "usage": "Headings, strong emphasis", "class": "font-bold" }
+    }
+  }
+}
+
