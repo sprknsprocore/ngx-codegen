@@ -1,0 +1,7 @@
+import{j as p}from"./jsx-runtime-D_zvdyIk.js";import{r as c}from"./index-Dz3UJJSw.js";import{c as u}from"./index-Dp3B9jqt.js";import{c as f}from"./clsx-B-dksMZM.js";import"./_commonjsHelpers-CqkleIqs.js";const g=u("inline-flex items-center rounded-md whitespace-nowrap",{variants:{size:{sm:"text-xs px-2 py-0.5",md:"text-sm px-2.5 py-0.5",lg:"text-md px-3 py-1"},variant:{soft:"bg-bg-surface text-fg-default",outline:"border border-border-default text-fg-default"}},defaultVariants:{size:"md",variant:"soft"}}),t=c.forwardRef(function({className:n,size:i,variant:l,...d},m){return p.jsx("span",{ref:m,className:f(g({size:i,variant:l}),n),...d})});try{t.displayName="Tag",t.__docgenInfo={description:"",displayName:"Tag",props:{size:{defaultValue:null,description:"",name:"size",required:!1,type:{name:'"sm" | "md" | "lg" | null'}},variant:{defaultValue:null,description:"",name:"variant",required:!1,type:{name:'"soft" | "outline" | null'}}}}}catch{}const z={title:"Components/Tag",component:t,argTypes:{size:{control:"select",options:["sm","md","lg"]},variant:{control:"select",options:["soft","outline"]}}},e={args:{children:"Tag",size:"md",variant:"soft"}};var a,r,s;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`{
+  args: {
+    children: "Tag",
+    size: "md",
+    variant: "soft"
+  }
+}`,...(s=(r=e.parameters)==null?void 0:r.docs)==null?void 0:s.source}}};const b=["Playground"];export{e as Playground,b as __namedExportsOrder,z as default};
