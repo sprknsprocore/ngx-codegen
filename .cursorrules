@@ -1,0 +1,49 @@
+project:
+  name: Figma-to-Cursor SSOT (Tailwind + Tokens)
+  stack: [react, typescript, tailwind]
+  ssot:
+    tokensPackage: packages/tokens/src/semantic-tokens.ts
+    tailwindConfig: tailwind.config.ts
+    primitivesDir: packages/ui/src/primitives
+    componentsDir: packages/ui/src/components
+rules:
+  - id: must-use-tokens
+    description: Always use theme tokens via Tailwind classes or typed accessors.
+    require:
+      - importOrReference: ["packages/tokens/src/semantic-tokens.ts", "tailwind.config.ts"]
+    forbid:
+      - pattern: "#[0-9A-Fa-f]{3,6}"
+        message: "Hex colors are forbidden. Use token classes or CSS vars."
+      - pattern: "rgb\\(|hsl\\("
+        message: "Raw color functions are forbidden. Use tokens."
+      - pattern: "\\[[^\\]]+\\]"
+        message: "Arbitrary Tailwind values are forbidden. Extend the theme."
+  - id: prefer-primitives
+    description: Build components by composing primitives.
+    suggest:
+      - pathMustExist: "packages/ui/src/primitives"
+      - pattern: "className="
+        message: "Use cva recipes and primitives; avoid ad-hoc classes."
+  - id: missing-pattern-extension
+    description: If a required pattern doesn’t exist, scaffold and extend the library.
+    steps:
+      - run: scripts/scaffold-component.ts <ComponentName>
+      - add: stories, tests, docs
+      - ensure: tokens referenced; no magic values
+banned:
+  - inlineStyleColors
+  - cssFilesForComponents
+  - arbitraryTailwindValues
+naming:
+  components: PascalCase
+  tokens: kebab-case semantic keys
+auto_references:
+  - tailwind.config.ts
+  - packages/tokens/src/semantic-tokens.ts
+  - packages/ui/src/primitives
+lints:
+  fail_on:
+    - must-use-tokens
+    - prefer-primitives
+    - missing-pattern-extension
+

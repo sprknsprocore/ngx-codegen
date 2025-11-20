@@ -1,0 +1,95 @@
+{
+  "color": {
+    "fg.default": "#0F172A",
+    "fg.secondary": "#475569",
+    "fg.muted": "#64748B",
+    "fg.disabled": "#94A3B8",
+    "fg.onbrand": "#FFFFFF",
+    "fg.reversed": "#FFFFFF",
+    "fg.brand": "#2563EB",
+    "fg.brand-hover": "#1D4ED8",
+    "fg.success": "#16A34A",
+    "fg.error": "#DC2626",
+    "fg.warning": "#D97706",
+    "bg.canvas": "#FFFFFF",
+    "bg.surface": "#F8FAFC",
+    "bg.secondary": "#F1F5F9",
+    "bg.tertiary": "#E2E8F0",
+    "bg.brand": "#2563EB",
+    "bg.brand-hover": "#1D4ED8",
+    "bg.success": "#F0FDF4",
+    "bg.error": "#FEF2F2",
+    "bg.warning": "#FFFBEB",
+    "bg.reversed": "#0F172A",
+    "bg.scrim-light": "rgba(15, 23, 42, 0.25)",
+    "bg.scrim-medium": "rgba(15, 23, 42, 0.50)",
+    "bg.scrim-dark": "rgba(15, 23, 42, 0.75)",
+    "border.default": "#CBD5E1",
+    "border.hover": "#94A3B8",
+    "border.focus": "#2563EB",
+    "border.error": "#DC2626",
+    "border.success": "#16A34A",
+    "state.success": "#16A34A",
+    "state.warn": "#D97706",
+    "state.danger": "#DC2626",
+    "state.info": "#2563EB",
+    "state.selected": "#EFF6FF"
+  },
+  "space": {
+    "0": "0px",
+    "0.5": "2px",
+    "1": "4px",
+    "1.5": "6px",
+    "2": "8px",
+    "2.5": "10px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px"
+  },
+  "radius": {
+    "none": "0px",
+    "sm": "4px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "16px",
+    "full": "9999px"
+  },
+  "shadow": {
+    "sm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "md": "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+    "lg": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)"
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": "Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'",
+      "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, 'Courier New'"
+    },
+    "size": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "md": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem"
+    },
+    "lineHeight": {
+      "xs": "1rem",
+      "sm": "1.25rem",
+      "md": "1.5rem",
+      "lg": "1.75rem",
+      "xl": "1.75rem",
+      "2xl": "2rem"
+    },
+    "weight": {
+      "regular": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    }
+  }
+}
+

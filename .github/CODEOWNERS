@@ -1,0 +1,8 @@
+# CODEOWNERS
+# Require approvals from design systems for tokens and UI packages
+/design/tokens/* @design-systems
+/packages/tokens/** @design-systems
+/packages/ui/** @design-systems @frontend-leads
+/tailwind.config.ts @design-systems
+/tailwind.plugins/** @design-systems
+
