@@ -10,28 +10,45 @@
  *   npm run sync:figma-component Badge -- --validate-only
  * 
  * What it does:
- * 1. Fetches component design from Figma using MCP tools
- * 2. Extracts props, variants, and states
+ * 1. Prompts for Figma URL and description (interactive mode)
+ * 2. Uses templates to generate consistent component structure
  * 3. Generates component scaffold with semantic tokens
- * 4. Creates Storybook story matching Procore structure
- * 5. Sets up Code Connect mapping
+ * 4. Creates Storybook story with Figma link
+ * 5. Adds to component exports
  * 
  * Requirements:
- * - Figma file must be open in Figma desktop app
+ * - Figma file must be accessible
  * - Component must exist in Figma design system
  */
 
 import * as fs from "fs";
 import * as path from "path";
+import * as readline from "readline";
 
 const repoRoot = path.resolve(__dirname, "..");
 const componentsDir = path.join(repoRoot, "packages", "ui", "src", "components");
+const templatesDir = path.join(__dirname, "templates");
 
 interface ComponentScaffold {
 	name: string;
-	props: string[];
-	variants: Record<string, string[]>;
-	description?: string;
+	description: string;
+	figmaUrl: string;
+}
+
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+
+/**
+ * Prompt user for input
+ */
+function prompt(question: string): Promise<string> {
+	return new Promise((resolve) => {
+		rl.question(question, (answer) => {
+			resolve(answer.trim());
+		});
+	});
 }
 
 function pascalCase(str: string): string {
@@ -48,140 +65,75 @@ function kebabCase(str: string): string {
 }
 
 /**
- * Generate component TypeScript file
+ * Replace template placeholders with actual values
+ */
+function replaceTemplatePlaceholders(template: string, scaffold: ComponentScaffold): string {
+	const componentNameLower = scaffold.name.toLowerCase();
+	const componentNameKebab = kebabCase(scaffold.name);
+	
+	return template
+		.replace(/\{\{COMPONENT_NAME\}\}/g, scaffold.name)
+		.replace(/\{\{COMPONENT_NAME_LOWER\}\}/g, componentNameLower)
+		.replace(/\{\{COMPONENT_NAME_KEBAB\}\}/g, componentNameKebab)
+		.replace(/\{\{DESCRIPTION\}\}/g, scaffold.description)
+		.replace(/\{\{FIGMA_URL\}\}/g, scaffold.figmaUrl || 'https://figma.com/...');
+}
+
+/**
+ * Generate component file from template
  */
 function generateComponentFile(scaffold: ComponentScaffold): string {
-	const { name, variants, description } = scaffold;
+	const templatePath = path.join(templatesDir, "component.tsx.template");
 	
-	const variantTypes = Object.entries(variants)
-		.map(([key, values]) => {
-			const typeValues = values.map(v => `"${v}"`).join(" | ");
-			return `\t\t\t${key}: {\n\t\t\t\t${values.map(v => `${v}: "",`).join("\n\t\t\t\t")}\n\t\t\t},`;
-		})
-		.join("\n");
-
-	const defaultVariants = Object.entries(variants)
-		.map(([key, values]) => `\t\t\t${key}: "${values[0]}",`)
-		.join("\n");
-
-	return `import * as React from "react";
-import { forwardRef } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import clsx from "clsx";
-
-const ${name.toLowerCase()} = cva(
-	"/* Base styles here - use semantic tokens only */",
-	{
-		variants: {
-${variantTypes}
-		},
-		defaultVariants: {
-${defaultVariants}
-		},
+	if (!fs.existsSync(templatePath)) {
+		throw new Error(`Template not found: ${templatePath}`);
 	}
-);
-
-export interface ${name}Props
-	extends React.HTMLAttributes<HTMLDivElement>,
-		VariantProps<typeof ${name.toLowerCase()}> {
-	${description ? `/** ${description} */` : ''}
-	/* Add component-specific props here */
-}
-
-export const ${name} = forwardRef<HTMLDivElement, ${name}Props>(function ${name}(
-	{ className, ...props },
-	ref
-) {
-	return (
-		<div
-			ref={ref}
-			className={clsx(${name.toLowerCase()}(props), className)}
-			{...props}
-		>
-			{/* Component implementation */}
-		</div>
-	);
-});
-`;
+	
+	const template = fs.readFileSync(templatePath, "utf8");
+	return replaceTemplatePlaceholders(template, scaffold);
 }
 
 /**
- * Generate Storybook story file
+ * Generate Storybook story file from template
  */
 function generateStoryFile(scaffold: ComponentScaffold): string {
-	const { name, variants, description } = scaffold;
+	const templatePath = path.join(templatesDir, "component.stories.tsx.template");
 	
-	const variantControls = Object.entries(variants)
-		.map(([key, values]) => {
-			return `\t\t${key}: {
-\t\t\tcontrol: 'select',
-\t\t\toptions: [${values.map(v => `'${v}'`).join(', ')}],
-\t\t},`;
-		})
-		.join("\n");
-
-	return `import type { Meta, StoryObj } from '@storybook/react';
-import { ${name} } from './${name}';
-
-const meta = {
-	title: 'Components/${name}',
-	component: ${name},
-	parameters: {
-		layout: 'centered',
-		docs: {
-			description: {
-				component: '${description || `${name} component from the Procore design system.`}',
-			},
-		},
-	},
-	tags: ['autodocs'],
-	argTypes: {
-${variantControls}
-	},
-} satisfies Meta<typeof ${name}>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-	args: {
-		// Default props
-	},
-};
-
-export const AllVariants: Story = {
-	render: () => (
-		<div className="flex flex-col gap-4">
-			{/* Showcase all variants */}
-		</div>
-	),
-};
-`;
+	if (!fs.existsSync(templatePath)) {
+		throw new Error(`Template not found: ${templatePath}`);
+	}
+	
+	const template = fs.readFileSync(templatePath, "utf8");
+	return replaceTemplatePlaceholders(template, scaffold);
 }
 
 /**
- * Extract component info from Figma
- * This is a template - needs actual MCP integration
+ * Get component info interactively
  */
-async function extractFromFigma(componentName: string, nodeId?: string): Promise<ComponentScaffold> {
-	console.log(`🎨 Fetching ${componentName} from Figma...`);
-	
-	// TODO: Integrate with Figma MCP tools
-	// Use mcp_Figma_get_design_context to fetch component
-	// Use mcp_Figma_get_metadata to get structure
-	
-	console.log("⚠️  NOTE: Figma MCP integration not yet implemented");
-	console.log("💡 Using template scaffold for now...\n");
+async function getComponentInfo(componentName: string, skipPrompts: boolean): Promise<ComponentScaffold> {
+	if (skipPrompts) {
+		return {
+			name: componentName,
+			description: `${componentName} component from the design system.`,
+			figmaUrl: "",
+		};
+	}
 
-	// Template scaffold - replace with actual Figma data
+	console.log("\n📝 Component Information");
+	console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+	
+	console.log("💡 Figma Libraries:");
+	console.log("   🛠 Foundation: https://figma.com/design/CIHfqQZS9xPyV4jYojfKgI/");
+	console.log("   🖥 Web Library: https://figma.com/design/KWGRfHm3E9X7WrL1wtb9Th/");
+	console.log("   ◻️  Data Table: https://figma.com/design/JrWb1OqtipkInevxd0oO6n/\n");
+	
+	const figmaUrl = await prompt("Figma URL (or press Enter to skip): ");
+	const description = await prompt(`Description (default: "${componentName} component"): `);
+	
 	return {
 		name: componentName,
-		props: ['children', 'variant', 'size'],
-		variants: {
-			variant: ['primary', 'secondary', 'tertiary'],
-			size: ['sm', 'md', 'lg'],
-		},
-		description: `${componentName} component from the Procore design system.`,
+		description: description || `${componentName} component from the design system.`,
+		figmaUrl: figmaUrl || "",
 	};
 }
 
@@ -190,25 +142,30 @@ async function main() {
 	
 	if (args.length === 0) {
 		console.error("❌ Error: Component name required");
-		console.log("Usage: npm run sync:figma-component <ComponentName>");
+		console.log("\nUsage:");
+		console.log("  npm run sync:figma-component <ComponentName>");
+		console.log("  npm run sync:figma-component <ComponentName> -- --no-prompts");
+		console.log("  npm run sync:figma-component <ComponentName> -- --validate-only");
+		console.log("\nExamples:");
+		console.log("  npm run sync:figma-component Badge");
+		console.log("  npm run sync:figma-component FeatureCard");
 		process.exit(1);
 	}
 
 	const componentName = pascalCase(args[0]);
-	const nodeIdArg = args.find(arg => arg.startsWith("--node-id="));
-	const nodeId = nodeIdArg?.split("=")[1];
 	const validateOnly = args.includes("--validate-only");
+	const noPrompts = args.includes("--no-prompts");
 
 	const componentPath = path.join(componentsDir, `${componentName}.tsx`);
 	const storyPath = path.join(componentsDir, `${componentName}.stories.tsx`);
 	const componentExists = fs.existsSync(componentPath);
 
-	console.log(`\n🚀 Syncing ${componentName} with Figma...\n`);
+	console.log(`\n🚀 Component Generator\n`);
+	console.log(`Component: ${componentName}`);
+	console.log(`Location: packages/ui/src/components/\n`);
 
 	try {
-		// Extract component info from Figma
-		const scaffold = await extractFromFigma(componentName, nodeId);
-
+		// Validate only mode
 		if (validateOnly) {
 			if (!componentExists) {
 				console.error(`❌ Component does not exist: ${componentPath}`);
@@ -223,15 +180,26 @@ async function main() {
 			console.log("   3. Ensure props API matches design");
 			console.log("   4. Run: npm run check:tokens");
 			
+			rl.close();
 			process.exit(0);
 		}
 
+		// Check if component already exists
 		if (componentExists) {
 			console.log(`⚠️  Component already exists: ${componentPath}`);
-			console.log("💡 Use --validate-only flag to validate existing component");
-			console.log("Or delete the file to regenerate from scratch");
+			console.log("\n💡 Options:");
+			console.log("   • Use --validate-only flag to validate existing component");
+			console.log("   • Delete the file to regenerate from scratch");
+			console.log("   • Choose a different component name");
+			rl.close();
 			process.exit(0);
 		}
+
+		// Get component information
+		const scaffold = await getComponentInfo(componentName, noPrompts);
+		rl.close();
+
+		console.log("\n📦 Generating files...\n");
 
 		// Generate component file
 		const componentCode = generateComponentFile(scaffold);
@@ -250,27 +218,47 @@ async function main() {
 			const exportLine = `export * from "./${componentName}";\n`;
 			
 			if (!indexContent.includes(exportLine)) {
-				fs.appendFileSync(indexPath, exportLine, "utf8");
+				// Find the right place to insert (alphabetically)
+				const lines = indexContent.split('\n');
+				const exportLines = lines.filter(line => line.startsWith('export * from'));
+				exportLines.push(exportLine);
+				exportLines.sort();
+				
+				const otherLines = lines.filter(line => !line.startsWith('export * from'));
+				const newContent = [...exportLines, ...otherLines].join('\n');
+				
+				fs.writeFileSync(indexPath, newContent, "utf8");
 				console.log(`✅ Updated: ${indexPath}`);
 			}
 		}
 
 		console.log("\n✨ Component scaffold created successfully!");
+		console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		console.log("\n📝 Next steps:");
-		console.log(`   1. Implement component logic in ${componentName}.tsx`);
-		console.log(`   2. Add stories to ${componentName}.stories.tsx`);
-		console.log("   3. Run: npm run check:tokens");
-		console.log("   4. Run: npm run storybook");
+		console.log(`\n   1. Open ${componentName}.tsx`);
+		console.log("      • Implement component logic");
+		console.log("      • Add variants to CVA config");
+		console.log("      • Use semantic tokens only!");
+		console.log(`\n   2. Open ${componentName}.stories.tsx`);
+		console.log("      • Add story variants");
+		console.log("      • Configure argTypes");
+		console.log("      • Update status tag when complete");
+		console.log("\n   3. Validate");
+		console.log("      • npm run check:tokens");
+		console.log("      • npm run lint");
+		console.log("      • npm run storybook");
+		console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		console.log("\n💡 Remember: Use semantic tokens only!");
 		console.log("   ❌ bg-white, text-gray-500, bg-blue-50");
 		console.log("   ✅ bg-bg-canvas, text-fg-secondary, bg-bg-brand");
+		console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
 	} catch (error) {
-		console.error("❌ Error syncing component from Figma:");
+		rl.close();
+		console.error("\n❌ Error generating component:");
 		console.error(error);
 		process.exit(1);
 	}
 }
 
 main();
-

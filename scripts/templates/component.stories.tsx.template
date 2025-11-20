@@ -1,0 +1,64 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { {{COMPONENT_NAME}} } from './{{COMPONENT_NAME}}';
+
+const meta = {
+	title: 'Components/{{COMPONENT_NAME}}',
+	component: {{COMPONENT_NAME}},
+	parameters: {
+		layout: 'centered',
+		design: {
+			type: 'figma',
+			url: '{{FIGMA_URL}}',
+		},
+		docs: {
+			description: {
+				component: '{{DESCRIPTION}}',
+			},
+		},
+	},
+	tags: ['autodocs', 'in-progress'], // Change to 'complete' when done
+	argTypes: {
+		// Define controls based on variants
+		// Example:
+		// size: { 
+		//   control: 'select',
+		//   options: ['sm', 'md', 'lg'],
+		// },
+	},
+} satisfies Meta<typeof {{COMPONENT_NAME}}>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+/**
+ * Default {{COMPONENT_NAME}} story
+ */
+export const Default: Story = {
+	args: {
+		children: '{{COMPONENT_NAME}}',
+	},
+};
+
+/**
+ * Showcase all variants of the {{COMPONENT_NAME}}
+ */
+export const AllVariants: Story = {
+	render: () => (
+		<div className="flex flex-col gap-4">
+			<{{COMPONENT_NAME}}>Variant 1</{{COMPONENT_NAME}}>
+			<{{COMPONENT_NAME}}>Variant 2</{{COMPONENT_NAME}}>
+			{/* Add more variants as needed */}
+		</div>
+	),
+};
+
+/**
+ * Example with custom styling
+ */
+export const CustomExample: Story = {
+	args: {
+		children: 'Custom {{COMPONENT_NAME}}',
+		className: 'custom-class',
+	},
+};
+

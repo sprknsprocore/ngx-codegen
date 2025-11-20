@@ -1,0 +1,71 @@
+import * as React from "react";
+import { forwardRef } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import clsx from "clsx";
+
+/**
+ * {{COMPONENT_NAME}}
+ * 
+ * {{DESCRIPTION}}
+ * 
+ * @see Figma: {{FIGMA_URL}}
+ * @see Storybook: http://localhost:6006/?path=/story/components-{{COMPONENT_NAME_LOWER}}
+ */
+
+const {{COMPONENT_NAME_LOWER}}Variants = cva(
+	/* Base styles - use semantic tokens only */
+	"",
+	{
+		variants: {
+			// Define variants based on Figma
+			// Example:
+			// size: {
+			//   sm: "text-sm p-2",
+			//   md: "text-md p-3",
+			//   lg: "text-lg p-4",
+			// },
+		},
+		defaultVariants: {
+			// Set defaults
+			// size: "md",
+		},
+	}
+);
+
+export interface {{COMPONENT_NAME}}Props
+	extends React.HTMLAttributes<HTMLDivElement>,
+		VariantProps<typeof {{COMPONENT_NAME_LOWER}}Variants> {
+	/**
+	 * {{DESCRIPTION}}
+	 */
+	children?: React.ReactNode;
+	
+	/* Add component-specific props here */
+}
+
+/**
+ * {{COMPONENT_NAME}} component
+ * 
+ * @example
+ * ```tsx
+ * <{{COMPONENT_NAME}}>
+ *   Content
+ * </{{COMPONENT_NAME}}>
+ * ```
+ */
+export const {{COMPONENT_NAME}} = forwardRef<HTMLDivElement, {{COMPONENT_NAME}}Props>(
+	function {{COMPONENT_NAME}}({ className, children, ...props }, ref) {
+		return (
+			<div
+				ref={ref}
+				className={clsx({{COMPONENT_NAME_LOWER}}Variants(props), className)}
+				{...props}
+			>
+				{children}
+			</div>
+		);
+	}
+);
+
+{{COMPONENT_NAME}}.displayName = "{{COMPONENT_NAME}}";
+
